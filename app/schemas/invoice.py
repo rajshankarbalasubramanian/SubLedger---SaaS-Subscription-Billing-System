@@ -1,0 +1,23 @@
+from pydantic import BaseModel, ConfigDict
+from decimal import Decimal
+from datetime import datetime
+
+class GenerateInvoiceRequest(BaseModel):
+    subscription_id: int
+    period_start: datetime | None = None
+    period_end: datetime | None = None
+
+class InvoiceResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    
+    id: int
+    subscription_id: int
+    customer_id: int
+    amount_due: Decimal
+    amount_paid: Decimal
+    currency: str
+    status: str
+    period_start: datetime
+    period_end: datetime
+    due_date: datetime
+    created_at: datetime
